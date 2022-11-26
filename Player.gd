@@ -38,8 +38,6 @@ func movement() -> void:
 	var movement_vector: Vector3
 	var forward_movement: Vector3
 	var sideways_movement: Vector3
-	#what is the offset of the player in respect of the camera
-	print(transform.basis.z)
 	
 	if Input.is_action_pressed("move_forward"):
 		# we move by -1 because that is the way the character is facing

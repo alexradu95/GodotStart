@@ -1,12 +1,7 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://Fantasy Town/stallRed.glb" type="PackedScene" id=2]
-[ext_resource path="res://Food Kit/Models/GLTF format/apple.glb" type="PackedScene" id=3]
-[ext_resource path="res://Food Kit/Models/GLTF format/beet.glb" type="PackedScene" id=4]
-[ext_resource path="res://Food Kit/Models/GLTF format/banana.glb" type="PackedScene" id=5]
-[ext_resource path="res://Blocky Characters/Models/Non-rigged/glTF/advancedCharacter.gltf" type="PackedScene" id=6]
-[ext_resource path="res://Blocky Characters/Skins/Advanced/skin_adventurer.png" type="Texture" id=7]
+[ext_resource path="res://food_quiz.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Blocky Characters/Faces/face_adventurer.png" type="Texture" id=8]
 [ext_resource path="res://Fonts/PoetsenOne-Regular.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://dialogue_manager.gd" type="Script" id=10]
@@ -33,9 +28,6 @@ size = 46
 extra_spacing_top = 2
 font_data = ExtResource( 9 )
 
-[sub_resource type="SpatialMaterial" id=6]
-albedo_texture = ExtResource( 7 )
-
 [node name="Main" type="Spatial"]
 
 [node name="Ground" type="MeshInstance" parent="."]
@@ -53,7 +45,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00434875, 0.0120845, 0.0065
 shape = SubResource( 5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -0.989495, 0, -0.144563, 0, 1, 0, 0.144563, 0, -0.989495, 2.442, 1, 0.348 )
+transform = Transform( -0.989495, 0, -0.144563, 0, 1, 0, 0.144563, 0, -0.989495, 2.442, 1, -1.69892 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -121,47 +113,4 @@ valign = 1
 transform = Transform( -0.171887, -0.928612, -0.328837, -0.821705, -0.048971, 0.567805, 0.543374, -0.367805, 0.754628, 0.722608, 10.4426, 11.0357 )
 shadow_enabled = true
 
-[node name="World" type="Node" parent="."]
-
-[node name="AdventurerNPC" parent="World" instance=ExtResource( 6 )]
-transform = Transform( -0.0795105, -6.68116e-05, 0.0606472, -7.19002e-05, 0.1, 1.58994e-05, -0.0606472, -3.09618e-05, -0.0795105, 0.28524, 0.0267951, 2.8694 )
-
-[node name="Body1" parent="World/AdventurerNPC" index="0"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="Head1" parent="World/AdventurerNPC" index="1"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="ArmLeft1" parent="World/AdventurerNPC" index="2"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="ArmRight1" parent="World/AdventurerNPC" index="3"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="LegLeft1" parent="World/AdventurerNPC" index="4"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="LegRight1" parent="World/AdventurerNPC" index="5"]
-transform = Transform( 1, -5.82077e-11, 2.98023e-08, 4.36557e-11, 1, -2.91038e-11, -8.9407e-08, -2.91038e-11, 1, 0, 0, 0 )
-material/0 = SubResource( 6 )
-
-[node name="stallRed" parent="World" instance=ExtResource( 2 )]
-transform = Transform( 0.160712, 0, -2.24425, 0, 2.25, 0, 2.24425, 0, 0.160712, 2.30815, 0.029393, 3.12104 )
-
-[node name="Fruits" type="Node" parent="World"]
-
-[node name="apple" parent="World/Fruits" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79663, 0.868335, 2.98016 )
-
-[node name="banana" parent="World/Fruits" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33005, 0.803082, 3.2437 )
-
-[node name="beet" parent="World/Fruits" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.96023, 0.894056, 3.28498 )
-
-[editable path="World/AdventurerNPC"]
+[node name="FoodQuiz" parent="." instance=ExtResource( 2 )]
