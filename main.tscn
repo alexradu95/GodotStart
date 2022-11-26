@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Fantasy Town/stallRed.glb" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Blocky Characters/Skins/Advanced/skin_adventurer.png" type="Texture" id=7]
 [ext_resource path="res://Blocky Characters/Faces/face_adventurer.png" type="Texture" id=8]
 [ext_resource path="res://Fonts/PoetsenOne-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://dialogue_manager.gd" type="Script" id=10]
+[ext_resource path="res://Dialogues/intro.tres" type="Resource" id=11]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 10, 10 )
@@ -27,7 +29,8 @@ height = 1.33141
 radius = 0.5
 
 [sub_resource type="DynamicFont" id=7]
-size = 13
+size = 46
+extra_spacing_top = 2
 font_data = ExtResource( 9 )
 
 [sub_resource type="SpatialMaterial" id=6]
@@ -79,9 +82,13 @@ margin_bottom = 9.0
 [node name="DialogUI" type="Control" parent="CanvasLayer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -42.0
-margin_right = 40.0
+margin_top = -129.0
+margin_right = 818.0
 margin_bottom = -2.0
+script = ExtResource( 10 )
+_dialog_text = NodePath("TextBackground/DialogText")
+_avatar = NodePath("TextureRect")
+_current_dialogue = ExtResource( 11 )
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/DialogUI"]
 anchor_top = 1.0
@@ -92,24 +99,23 @@ texture = ExtResource( 8 )
 expand = true
 
 [node name="TextBackground" type="ColorRect" parent="CanvasLayer/DialogUI"]
-margin_left = 135.0
-margin_top = -82.0
-margin_right = 186.0
-margin_bottom = -21.0
-rect_scale = Vector2( 13.16, 1.88 )
+margin_left = 133.0
+margin_top = 7.0
+margin_right = 839.0
+margin_bottom = 120.0
 color = Color( 1, 0.886275, 0.588235, 0.498039 )
 
 [node name="DialogText" type="Label" parent="CanvasLayer/DialogUI/TextBackground"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = 3.0
-margin_bottom = 3.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+margin_left = 7.0
+margin_top = 4.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 0
 custom_fonts/font = SubResource( 7 )
-text = "Sample"
-autowrap = true
+text = "Hello"
+valign = 1
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.171887, -0.928612, -0.328837, -0.821705, -0.048971, 0.567805, 0.543374, -0.367805, 0.754628, 0.722608, 10.4426, 11.0357 )
