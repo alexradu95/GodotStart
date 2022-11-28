@@ -49,8 +49,12 @@ func movement() -> void:
 		sideways_movement = -transform.basis.x
 	elif Input.is_action_pressed("move_right"):
 		sideways_movement = transform.basis.x
+		
+	var _current_move_speed = _move_speed
+	if Input.is_action_pressed("sprint"):
+		_current_move_speed = _move_speed * 1.5
 
-	movement_vector = (forward_movement + sideways_movement) * _move_speed
-	movement_vector = movement_vector.normalized()
+	movement_vector = (forward_movement + sideways_movement) * _current_move_speed
+	movement_vector = movement_vector
 	
 	move_and_slide(movement_vector)

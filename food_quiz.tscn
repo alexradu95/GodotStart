@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Fantasy Town/stallRed.glb" type="PackedScene" id=1]
-[ext_resource path="res://Blocky Characters/Models/Non-rigged/glTF/advancedCharacter.gltf" type="PackedScene" id=2]
-[ext_resource path="res://Food Kit/Models/GLTF format/apple.glb" type="PackedScene" id=3]
-[ext_resource path="res://Food Kit/Models/GLTF format/banana.glb" type="PackedScene" id=4]
-[ext_resource path="res://Food Kit/Models/GLTF format/beet.glb" type="PackedScene" id=5]
-[ext_resource path="res://Blocky Characters/Skins/Advanced/skin_adventurer.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Fantasy Town/stallRed.glb" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Blocky Characters/Models/Non-rigged/glTF/advancedCharacter.gltf" type="PackedScene" id=2]
+[ext_resource path="res://food.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Blocky Characters/Skins/Advanced/skin_adventurer.png" type="Texture" id=6]
 [ext_resource path="res://food_quiz.gd" type="Script" id=7]
 
 [sub_resource type="SpatialMaterial" id=9]
@@ -19,10 +17,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.368295, 0, 0 )
 script = ExtResource( 7 )
 
 [node name="StallRed" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.160712, 0, -2.24425, 0, 2.25, 0, 2.24425, 0, 0.160712, 2.30815, 0.029393, 3.12104 )
+transform = Transform( 0.160712, 0, -2.24425, 0, 2.25, 0, 2.24425, 0, 0.160712, 0, 0, 0 )
 
 [node name="AdventurerNPC" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.0795105, -6.68116e-05, 0.0606472, -7.19002e-05, 0.1, 1.58994e-05, -0.0606472, -3.09618e-05, -0.0795105, 0.28524, 0.0267951, 2.8694 )
+transform = Transform( -0.0795105, -6.68116e-05, 0.0606472, -7.19002e-05, 0.1, 1.58994e-05, -0.0606472, -3.09618e-05, -0.0795105, -2.85248, -0.00186348, 0.137068 )
 
 [node name="Body1" parent="AdventurerNPC" index="0"]
 transform = Transform( 1, 0, 0, -4.36557e-11, 1, 2.91038e-11, -2.98023e-08, -2.91038e-11, 1, 0, 0, 0 )
@@ -48,23 +46,20 @@ material/0 = SubResource( 9 )
 transform = Transform( 1, 0, 0, -4.36557e-11, 1, 2.91038e-11, -2.98023e-08, -2.91038e-11, 1, 0, 0, 0 )
 material/0 = SubResource( 9 )
 
-[node name="Fruits" type="Spatial" parent="."]
-transform = Transform( 0.039542, 0, -0.88395, 0, 0.856996, 0, 0.898822, 0, 0.0388878, 2.30641, -0.167752, 2.46311 )
-
-[node name="Apple" parent="Fruits" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.468212, 1.2, -0.76683 )
-
-[node name="Banana" parent="Fruits" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.468212, 1.2, 0 )
-
-[node name="Beet" parent="Fruits" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.468212, 1.2, 0.968551 )
-
 [node name="DialogTrigger" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.21614, 0.610823, 1.53632 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00474519, 0.385788, -1.50496 )
 
 [node name="CollisionShape" type="CollisionShape" parent="DialogTrigger"]
 shape = SubResource( 8 )
+
+[node name="Food" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.039542, 0, -0.88395, 0, 0.856996, 0, 0.898822, 0, 0.0388878, 0.707965, 1.21212, -0.0311456 )
+
+[node name="Food2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.039542, 0, -0.88395, 0, 0.856996, 0, 0.898822, 0, 0.0388878, 0.0305677, 1.26657, 0.00844956 )
+
+[node name="Food3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.039542, 0, -0.88395, 0, 0.856996, 0, 0.898822, 0, 0.0388878, -0.642317, 1.26657, -0.0200593 )
 
 [connection signal="body_entered" from="DialogTrigger" to="." method="_on_DialogTrigger_body_entered"]
 

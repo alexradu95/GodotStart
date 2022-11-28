@@ -1,14 +1,86 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://food_quiz.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Blocky Characters/Faces/face_adventurer.png" type="Texture" id=8]
-[ext_resource path="res://Fonts/PoetsenOne-Regular.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Dialogues/fruit_chat.tres" type="Resource" id=3]
+[ext_resource path="res://Assets/Food Kit/Models/GLTF format/grapes.glb" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Food Kit/Models/GLTF format/apple.glb" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Food Kit/Models/GLTF format/orange.glb" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Blocky Characters/Faces/face_adventurer.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Fonts/PoetsenOne-Regular.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://dialogue_manager.gd" type="Script" id=10]
 [ext_resource path="res://Dialogues/intro.tres" type="Resource" id=11]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 10, 10 )
+
+[sub_resource type="OpenSimplexNoise" id=8]
+period = 19.3
+persistence = 0.0
+lacunarity = 0.96
+
+[sub_resource type="NoiseTexture" id=9]
+seamless = true
+bump_strength = 8.4
+noise = SubResource( 8 )
+
+[sub_resource type="VisualShaderNodeTexture" id=10]
+texture = SubResource( 9 )
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeColorConstant" id=11]
+constant = Color( 0.0753322, 0.142061, 0.493905, 1 )
+
+[sub_resource type="VisualShaderNodeVectorOp" id=14]
+
+[sub_resource type="VisualShader" id=12]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx, async_visible;
+
+uniform sampler2D tex_frg_2 : hint_albedo;
+
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Color:3
+	vec3 n_out3p0 = vec3(0.075332, 0.142061, 0.493905);
+	float n_out3p1 = 1.000000;
+
+// Texture:2
+	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
+	vec3 n_out2p0 = tex_frg_2_read.rgb;
+	float n_out2p1 = tex_frg_2_read.a;
+
+// VectorOp:4
+	vec3 n_out4p0 = n_out3p0 + n_out2p0;
+
+// Output:0
+	ALBEDO = n_out4p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -1147.12, -103.505 )
+nodes/fragment/0/position = Vector2( 0, 160 )
+nodes/fragment/2/node = SubResource( 10 )
+nodes/fragment/2/position = Vector2( -1000, 260 )
+nodes/fragment/3/node = SubResource( 11 )
+nodes/fragment/3/position = Vector2( -960, 20 )
+nodes/fragment/4/node = SubResource( 14 )
+nodes/fragment/4/position = Vector2( -620, 20 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 2, 0, 4, 1, 4, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 1, 1, 1 )
@@ -17,8 +89,8 @@ size = Vector3( 1, 1, 1 )
 data = PoolVector3Array( -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5 )
 
 [sub_resource type="CapsuleShape" id=3]
-radius = 0.519556
-height = 1.33141
+radius = 0.48135
+height = 1.09
 
 [sub_resource type="CapsuleMesh" id=4]
 radius = 0.5
@@ -31,7 +103,9 @@ font_data = ExtResource( 9 )
 [node name="Main" type="Spatial"]
 
 [node name="Ground" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.094044, -0.200754, 0.260481 )
 mesh = SubResource( 1 )
+material/0 = SubResource( 13 )
 
 [node name="ComparisonCube" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.827294, 0.287671, 0.225192 )
@@ -45,7 +119,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00434875, 0.0120845, 0.0065
 shape = SubResource( 5 )
 
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( -0.989495, 0, -0.144563, 0, 1, 0, 0.144563, 0, -0.989495, 2.442, 1, -1.69892 )
+transform = Transform( -0.989495, 0, -0.144563, 0, 1, 0, 0.144563, 0, -0.989495, 2.442, 1.02568, -1.69892 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -53,7 +127,7 @@ transform = Transform( 1, 0, 0, 0, 0.0422593, 0.999107, 0, -0.999107, 0.0422593,
 shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Player"]
-transform = Transform( -3.32207e-08, 0.936, -4.37114e-08, 0, -4.09139e-08, -1, -0.76, -4.09139e-08, 1.91069e-15, 0, 0, 0 )
+transform = Transform( -2.23517e-08, 0.936, -4.37114e-08, 0, -4.09139e-08, -1, -0.76, -4.47035e-08, 1.33227e-15, 0, 0, 0 )
 mesh = SubResource( 4 )
 
 [node name="Camera" type="Camera" parent="Player"]
@@ -114,3 +188,16 @@ transform = Transform( -0.171887, -0.928612, -0.328837, -0.821705, -0.048971, 0.
 shadow_enabled = true
 
 [node name="FoodQuiz" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.337664, 3.15999 )
+_dialogue = ExtResource( 3 )
+
+[node name="apple" parent="FoodQuiz/Food" index="2" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 7.45058e-09, 0, 1, 0, 0, 0 )
+
+[node name="grapes" parent="FoodQuiz/Food2" index="2" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 7.45058e-09, 0, 1, 0, -0.112482, 0 )
+
+[node name="orange" parent="FoodQuiz/Food3" index="2" instance=ExtResource( 6 )]
+
+[editable path="FoodQuiz"]
+[editable path="FoodQuiz/AdventurerNPC"]

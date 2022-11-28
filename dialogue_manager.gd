@@ -10,8 +10,17 @@ var _current_slide_index := 0
 
 func _ready():
 	_avatar.texture = _current_dialogue.avatar_texture
-	_dialog_text.text = _current_dialogue.dialog_slides[0]
 	show_slide()
+	
+	GameEvents.connect("dialog_initiated", self, "_on_dialog_initiated")
+
+func _on_dialog_initiated(dialogue: Dialogue) -> void:
+	_current_dialogue = dialogue
+	_current_slide_index = 0
+	_avatar.texture = dialogue.avatar_texture
+	self.visible = true
+	show_slide()
+	
 
 func _input(event):
 	if Input.is_action_just_pressed("advance_slide"):
